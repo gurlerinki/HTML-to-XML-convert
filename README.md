@@ -35,16 +35,3 @@ The parser automatically fixes broken or unclosed HTML tags.
 The output is XHTML-compatible XML with proper tag closures.
 
 Works completely offline, safe for company data.
-
-
----
-
-
-
-
-
-
-
-
-
-ChatGPT’ye sor
