@@ -1,37 +1,82 @@
-# HTML to XML (XHTML) Batch Converter (No lxml)
+# HTML Converter Tools (Offline)
 
-This script converts `.html` files into well-formed `.xml` (XHTML-like) files.  
-It uses [html5lib](https://pypi.org/project/html5lib/) as the parser, so no C/C++ build tools are required.
+Bu depo artık iki farklı araç içerir:
+
+1. **HTML → XML (XHTML) toplu dönüştürücü (CLI)**
+2. **HTML → PDF toplu dönüştürücü (Masaüstü arayüz / GUI)**
+
+Her iki araç da internet bağlantısı olmadan çalışır.
 
 ---
 
-## Installation
+## 1) HTML → XML (CLI)
 
-1. Make sure you have Python 3.9+ installed.  
-2. Clone or download this repository.  
-3. Install the required dependencies:
+`html_to_xml_batch_no_lxml.py` bozuk HTML dosyalarını `html5lib` ile parse ederek iyi-biçimli XML (XHTML benzeri) çıktısı üretir.
+
+### Kurulum
 
 ```bash
-python -m pip install -r requirements_no_lxml.txt
-Usage
-Convert all .html files inside a folder and output them as .xml:
+python -m pip install -r requirements.txt
+```
 
-bash
-Kodu kopyala
-python html_to_xml_batch_no_lxml.py "C:\Users\Desktop\XML\.html" -o "C:\Users\Desktop\XML\.xml_cikti"
--o specifies the output folder.
+### Kullanım
 
-Add --flat if you want all XML files to be written into a single folder (instead of preserving the original directory structure).
+```bash
+python html_to_xml_batch_no_lxml.py "C:\input_klasoru" -o "C:\output_klasoru"
+```
 
-Use --no-pretty to disable indentation/pretty-printing.
+Opsiyonlar:
 
-Example
-Input: example.html
-Output: example.xml (well-formed XML)
+- `--flat`: klasör yapısını korumadan tüm XML dosyalarını tek klasöre yazar.
+- `--no-pretty`: girintileme (pretty-print) kapatılır.
 
-Notes
-The parser automatically fixes broken or unclosed HTML tags.
+---
 
-The output is XHTML-compatible XML with proper tag closures.
+## 2) HTML → PDF (GUI)
 
-Works completely offline, safe for company data.
+`html_to_pdf_gui.py`, kullanıcıya arayüz üzerinden:
+
+- birden fazla HTML dosyası seçme,
+- klasörden toplu HTML ekleme,
+- PDF kayıt klasörü seçme,
+- tek tıkla toplu PDF dönüştürme
+
+imkânı verir.
+
+### Çalıştırma (Geliştirici ortamı)
+
+```bash
+python html_to_pdf_gui.py
+```
+
+---
+
+## Son kullanıcıda Python kurulu olmadan kullanım (EXE)
+
+Aşağıdaki adımlarla Windows için tek dosya EXE üretebilirsiniz:
+
+1. Gerekli paketleri kurun:
+
+```bash
+python -m pip install -r requirements.txt pyinstaller
+```
+
+2. EXE derleyin:
+
+```bash
+pyinstaller --noconfirm --onefile --windowed --name html-to-pdf-batch html_to_pdf_gui.py
+```
+
+3. Üretilen dosya:
+
+- `dist/html-to-pdf-batch.exe`
+
+Bu EXE son kullanıcı bilgisayarında **Python kurulu olmadan** çalışır.
+
+---
+
+## Notlar
+
+- PDF kalitesi/uyumu HTML içeriğine bağlıdır.
+- Çok karmaşık CSS/JS içeren sayfalarda sadeleştirme gerekebilir.
+- Araçlar tamamen offline kullanım için uygundur.
